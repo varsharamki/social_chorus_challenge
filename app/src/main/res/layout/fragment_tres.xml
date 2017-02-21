@@ -1,0 +1,26 @@
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardElevation="10dp"
+    card_view:cardCornerRadius="150dp"
+    card_view:contentPadding="15dp"
+    android:clickable="true"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/card3"
+
+    tools:context="challenge.socialchorus.com.socialchoruschallenge.fragments.TresFragment">
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_tres"
+        />
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,38 @@
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardElevation="10dp"
+    card_view:cardCornerRadius="150dp"
+    card_view:contentPadding="15dp"
+    android:clickable="true"
+    android:layout_centerVertical="true"
+    android:id="@+id/card1"
+    android:layout_centerHorizontal="true"
+
+    card_view:cardPreventCornerOverlap="false"
+    tools:context="challenge.socialchorus.com.socialchoruschallenge.fragments.UnoFragment">
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_uno"
+        />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="PRESS"
+    android:textColor="#E88726"
+    android:textSize="45sp"
+    android:textStyle="bold"
+    android:layout_gravity="center"
+    android:layout_marginLeft="15dp"
+    />
+
+</android.support.v7.widget.CardView>
