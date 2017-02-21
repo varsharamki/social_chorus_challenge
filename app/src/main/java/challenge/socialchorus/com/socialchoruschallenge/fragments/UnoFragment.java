@@ -60,15 +60,15 @@ public class UnoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_uno, container, false);
+        View view = inflater.inflate(R.layout.fragment_uno, container, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 getActivity().findViewById(R.id.activity_property_animation).animate().setDuration(5000).translationX(50).start();
+                getActivity().findViewById(R.id.activity_property_animation).animate().setDuration(5000).translationX(50).start();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
 
-                transaction.replace(R.id.activity_property_animation, new DosFragment() );
+                transaction.replace(R.id.activity_property_animation, new DosFragment());
                 transaction.addToBackStack("Second");
                 transaction.commit();
             }

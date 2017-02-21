@@ -60,14 +60,14 @@ public class DosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_dos, container, false);
+        View view = inflater.inflate(R.layout.fragment_dos, container, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().findViewById(R.id.activity_property_animation).animate().setDuration(5000).xBy(3.0f*(getActivity().findViewById(R.id.activity_property_animation).getTranslationX())).start();
+                getActivity().findViewById(R.id.activity_property_animation).animate().setDuration(5000).xBy(3.0f * (getActivity().findViewById(R.id.activity_property_animation).getTranslationX())).start();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
-                transaction.replace(R.id.activity_property_animation, new TresFragment() );
+                transaction.replace(R.id.activity_property_animation, new TresFragment());
                 transaction.addToBackStack("Third");
                 transaction.commit();
             }

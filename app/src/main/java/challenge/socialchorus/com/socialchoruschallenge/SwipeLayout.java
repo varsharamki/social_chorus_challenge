@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 
-
 public class SwipeLayout extends RelativeLayout {
     private final double AUTO_OPEN_SPEED_LIMIT = 800.0;
     private int draggingState = 0;
@@ -21,8 +20,81 @@ public class SwipeLayout extends RelativeLayout {
     private boolean mIsOpen;
 
 
-    public class DragHelperCallback extends ViewDragHelper.Callback {
+    public SwipeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mIsOpen = false;
+    }
 
+    @Override
+    protected void onFinishInflate() {
+        cardView = (CardView) findViewById(R.id.card3);
+        mDragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
+        mIsOpen = false;
+        super.onFinishInflate();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        mVerticalRange = (int) (h * 0.66);
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    private void onStopDraggingToClosed() {
+        // To be implemented
+    }
+
+    private void onStartDragging() {
+
+    }
+
+    private boolean isCardViewTarget(MotionEvent event) {
+        //this needs to be tailored to suit one child target and device width
+        int[] cardViewLocation = {100, 100};
+
+        int upperLimit = cardViewLocation[1] + 200;
+        int lowerLimit = cardViewLocation[1];
+        int y = (int) event.getRawY();
+        return (y > lowerLimit && y < upperLimit);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        cardView = (CardView) findViewById(R.id.card3);
+
+        if (isCardViewTarget(event) && mDragHelper.shouldInterceptTouchEvent(event)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (isCardViewTarget(event) || isMoving()) {
+            mDragHelper.processTouchEvent(event);
+            return true;
+        } else {
+            return super.onTouchEvent(event);
+        }
+    }
+
+    @Override
+    public void computeScroll() { // needed for automatic settling.
+        if (mDragHelper.continueSettling(true)) {
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+    }
+
+    public boolean isMoving() {
+        return (draggingState == ViewDragHelper.STATE_DRAGGING ||
+                draggingState == ViewDragHelper.STATE_SETTLING);
+    }
+
+    public boolean isOpen() {
+        return mIsOpen;
+    }
+
+    public class DragHelperCallback extends ViewDragHelper.Callback {
 
 
         @Override
@@ -91,82 +163,9 @@ public class SwipeLayout extends RelativeLayout {
 
             final int settleDestY = settleToOpen ? mVerticalRange : 0;
 
-            if(mDragHelper.settleCapturedViewAt(0, settleDestY)) {
+            if (mDragHelper.settleCapturedViewAt(0, settleDestY)) {
                 ViewCompat.postInvalidateOnAnimation(SwipeLayout.this);
             }
         }
-    }
-
-    public SwipeLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mIsOpen = false;
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        cardView=(CardView)findViewById(R.id.card3);
-        mDragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
-        mIsOpen = false;
-        super.onFinishInflate();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mVerticalRange = (int) (h * 0.66);
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    private void onStopDraggingToClosed() {
-        // To be implemented
-    }
-
-    private void onStartDragging() {
-
-    }
-
-    private boolean isQueenTarget(MotionEvent event) {
-        int[] queenLocation = {100,100};
-
-        int upperLimit = queenLocation[1] + 200;
-        int lowerLimit = queenLocation[1];
-        int y = (int) event.getRawY();
-        return (y > lowerLimit && y < upperLimit);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        cardView=(CardView)findViewById(R.id.card3);
-
-        if (isQueenTarget(event) && mDragHelper.shouldInterceptTouchEvent(event)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (isQueenTarget(event) || isMoving()) {
-            mDragHelper.processTouchEvent(event);
-            return true;
-        } else {
-            return super.onTouchEvent(event);
-        }
-    }
-
-    @Override
-    public void computeScroll() { // needed for automatic settling.
-        if (mDragHelper.continueSettling(true)) {
-            ViewCompat.postInvalidateOnAnimation(this);
-        }
-    }
-
-    public boolean isMoving() {
-        return (draggingState == ViewDragHelper.STATE_DRAGGING ||
-                draggingState == ViewDragHelper.STATE_SETTLING);
-    }
-
-    public boolean isOpen() {
-        return mIsOpen;
     }
 }
